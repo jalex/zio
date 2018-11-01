@@ -28,19 +28,19 @@
   </ItemGroup>
   
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3'">
-    <DefineConstants>$(AdditionalConstants);NETSTANDARD;HAS_ZIPARCHIVE</DefineConstants>
+    <DefineConstants>$(AdditionalConstants);NETSTANDARD;NETSTANDARD1;HAS_ZIPARCHIVE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
-    <DefineConstants>$(AdditionalConstants);NETSTANDARD;HAS_ZIPARCHIVE</DefineConstants>
+    <DefineConstants>$(AdditionalConstants);NETSTANDARD;NETSTANDARD2;HAS_ZIPARCHIVE</DefineConstants>
   </PropertyGroup>
   
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
-    <DefineConstants>$(AdditionalConstants);NET45;HAS_ZIPARCHIVE</DefineConstants>
+    <DefineConstants>$(AdditionalConstants);NET;NET45;HAS_ZIPARCHIVE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net40'">
-    <DefineConstants>$(AdditionalConstants);NET40</DefineConstants>
+    <DefineConstants>$(AdditionalConstants);NET;NET40</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

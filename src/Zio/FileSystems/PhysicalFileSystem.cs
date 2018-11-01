@@ -147,14 +147,17 @@ namespace Zio.FileSystems
                 throw new UnauthorizedAccessException($"The access to `{destBackupPath}` is denied");
             }
 
+#if NETSTANDARD1
             if (!destBackupPath.IsNull)
             {
                 CopyFileImpl(destPath, destBackupPath, true);
             }
             CopyFileImpl(srcPath, destPath, true);
             DeleteFileImpl(srcPath);
-
-            // TODO: Add atomic version using File.Replace coming with .NET Standard 2.0
+#else
+            // Atomic version using File.Replace coming with .NET Standard 2.0
+            File.Replace(ConvertPathToInternal(srcPath), ConvertPathToInternal(destPath), destBackupPath.IsNull ? null : ConvertPathToInternal(destBackupPath), ignoreMetadataErrors);
+#endif
         }
 
         /// <inheritdoc />
