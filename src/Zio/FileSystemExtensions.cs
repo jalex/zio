@@ -16,19 +16,32 @@ namespace Zio
     /// </summary>
     public static class FileSystemExtensions
     {
+
+        /// <summary>
+        /// Creates a readonly filesystem on top of another <see cref="IFileSystem"/>.
+        /// </summary>
+        /// <param name="fs">The filesystem to derive a new readonly filesystem from it</param>
+        /// <param name="owned">True if this <paramref name="fs"/> should be disposed when returned instance is disposed</param>
+        /// <returns>A readonly filesystem</returns>
+        public static ReadOnlyFileSystem ToReadOnly(this IFileSystem fs, bool owned = true) 
+        {
+            return new ReadOnlyFileSystem(fs, owned: owned);
+        }
+
         /// <summary>
         /// Gets or create a <see cref="SubFileSystem"/> from an existing filesystem and the specified sub folder
         /// </summary>
         /// <param name="fs">The filesystem to derive a new sub-filesystem from it</param>
         /// <param name="subFolder">The folder of the sub-filesystem</param>
+        /// <param name="owned">True if this <paramref name="fs"/> should be disposed when returned instance is disposed</param>
         /// <returns>A sub-filesystem</returns>
-        public static SubFileSystem GetOrCreateSubFileSystem(this IFileSystem fs, UPath subFolder)
+        public static SubFileSystem GetOrCreateSubFileSystem(this IFileSystem fs, UPath subFolder, bool owned = true)
         {
             if (!fs.DirectoryExists(subFolder))
             {
                 fs.CreateDirectory(subFolder);
             }
-            return new SubFileSystem(fs, subFolder);
+            return new SubFileSystem(fs, subFolder, owned: owned);
         }
 
         /// <summary>
